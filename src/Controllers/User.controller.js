@@ -386,9 +386,19 @@ const updateInfo2 = asynchandler(async (req, res) => {
     throw new Apierror(400, "Username already taken");
   }
 
+  const updatedUser = await Users.findByIdAndUpdate(
+    req.user._id,
+    { name, username },
+    { new: true, runValidators: true }
+  ).select("-password -refreshToken");
+
+  if (!updatedUser) {
+    throw new Apierror(404, "User not found");
+  }
+
   res
     .status(200)
-    .json(new Apiresponse(200, "hello", "Profile updated successfully"));
+    .json(new Apiresponse(200, updatedUser, "Profile updated successfully"));
 });
 
 export {
