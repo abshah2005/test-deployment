@@ -369,6 +369,38 @@ const updateInfo = asynchandler(async (req, res) => {
     .json(new Apiresponse(200, updatedUser, "Profile updated successfully"));
 });
 
+
+const updateInfo2 = asynchandler(async (req, res) => {
+  const { name, username } = req.body;
+
+  if (!name || !username) {
+    throw new Apierror(400, "Both name and username are required");
+  }
+
+  const existingUser = await Users.findOne({
+    username,
+    _id: { $ne: req.user._id },
+  });
+
+  if (existingUser) {
+    throw new Apierror(400, "Username already taken");
+  }
+
+  const updatedUser = await Users.findByIdAndUpdate(
+    req.user._id,
+    { name, username },
+    { new: true, runValidators: true }
+  ).select("-password -refreshToken");
+
+  if (!updatedUser) {
+    throw new Apierror(404, "User not found");
+  }
+
+  res
+    .status(200)
+    .json(new Apiresponse(200, updatedUser, "Profile updated successfully"));
+});
+
 export {
   registerUser,
   verifyEmailStep1,
