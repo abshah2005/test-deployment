@@ -369,10 +369,10 @@ const updateInfo = asynchandler(async (req, res) => {
     .json(new Apiresponse(200, updatedUser, "Profile updated successfully"));
 });
 
-const gethehe = asynchandler(async (req, res) => {
+const hehe = asynchandler(async (req, res) => {
   res
     .status(200)
-    .json(new Apiresponse(200, "Hello guys how are you", "hello sir ammar i hope u are enjoying the presentation"));
+    .json(new Apiresponse(200, " ", "hello sir ammar i hope u are enjoying the presentation"));
 });
 
 
@@ -389,5 +389,5 @@ export {
   forgotPassword,
   resetPassword,
   testSendMail,
-  gethehe
+  hehe
 };
