@@ -12,6 +12,7 @@ import {
   updatePasswordStep2,
   forgotPassword,
   resetPassword,
+  gethehe
 } from "../Controllers/User.controller.js";
 import { upload } from "../middlewares/Multer.middleware.js";
 import { verifyJWT } from "../middlewares/Authentication.middleware.js";
@@ -29,7 +30,7 @@ router
   router.route("/updateinfo").put(verifyJWT,updateInfo)
   router.route("/verifyEmail").put(verifyJWT,verifyEmailStep1)
   router.route("/updatestep2").put(verifyJWT,updatePasswordStep2)
-
+  router.get("/hello").get(gethehe)
   router.route("/forgotPassword").post(forgotPassword)
   router.route("/resetPassword").put(resetPassword)
 
